@@ -1,0 +1,22 @@
+name: DEPLOY TO STAGING
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  firebase-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        name: Installing project dependencies
+      - run: npm install
+        name: Building the project
+      - run: npm run build
+      - uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: 1//03PSD36pDu2oSCgYIARAAGAMSNwF-L9IrXgrMaSv9-JHzGQvKRTmivXv_c6UaUR7y76VjZWmCSGYP5C5pc5G1kUY503jCVMIFPbw
